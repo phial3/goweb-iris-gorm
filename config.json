@@ -1,4 +1,5 @@
 {
+  "AppName": "web-demo",
   "Port": "8848",
   "DBUserName": "root",
   "DBPassword": "123456",

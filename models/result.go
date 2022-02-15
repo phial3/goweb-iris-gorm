@@ -6,7 +6,7 @@ type Result struct {
 	Data interface{}
 }
 
-func NewResult(data interface{}, c int, m ...string) *Result {
+func NewResult(c int, data interface{}, m ...string) *Result {
 	r := &Result{Data: data, Code: c}
 
 	if e, ok := data.(error); ok {
@@ -14,7 +14,7 @@ func NewResult(data interface{}, c int, m ...string) *Result {
 			r.Msg = e.Error()
 		}
 	} else {
-		r.Msg = "SUCCESS"
+		r.Msg = "success"
 	}
 	if len(m) > 0 {
 		r.Msg = m[0]

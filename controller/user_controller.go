@@ -1,4 +1,4 @@
-package controllers
+package controller
 
 import (
 	"github.com/kataras/iris/v12"
@@ -36,6 +36,5 @@ func (g *UserController) PostSave() (result models.Result) {
 		result.Msg = "数据错误"
 		return
 	}
-
 	return g.Service.Save(user)
 }

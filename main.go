@@ -2,11 +2,11 @@ package main
 
 import (
 	"flag"
-	"github.com/kataras/iris/v12"
 )
 
 import (
 	"github.com/iris-contrib/middleware/cors"
+	"github.com/kataras/iris/v12"
 )
 
 import (
@@ -14,6 +14,9 @@ import (
 	"goweb-iris-gorm/route"
 )
 
+/**
+缺少session实现
+*/
 func main() {
 	flag.Parse()
 	app := newApp()

@@ -32,6 +32,7 @@ func (n bookRepository) GetBookList(m map[string]interface{}) (total int, books 
 	}
 	return
 }
+
 func (n bookRepository) SaveBook(book models.Book) (err error) {
 	if book.ID != 0 {
 		err := db.Save(&book).Error
@@ -41,10 +42,12 @@ func (n bookRepository) SaveBook(book models.Book) (err error) {
 		return err
 	}
 }
+
 func (n bookRepository) GetBook(id uint) (book models.Book, err error) {
 	err = db.First(&book, id).Error
 	return
 }
+
 func (n bookRepository) DelBook(id uint) (err error) {
 	var book models.Book
 	book.ID = id
