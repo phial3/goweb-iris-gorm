@@ -6,14 +6,14 @@ import (
 
 import (
 	"goweb-iris-gorm/datasource"
-	"goweb-iris-gorm/models"
+	"goweb-iris-gorm/model"
 	"goweb-iris-gorm/utils"
 )
 
 type UserRepository interface {
-	GetUserByUserNameAndPwd(username string, password string) (user models.User)
-	GetUserByUsername(username string) (user models.User)
-	Save(user models.User) (int, models.User)
+	GetUserByUserNameAndPwd(username string, password string) (user model.User)
+	GetUserByUsername(username string) (user model.User)
+	Save(user model.User) (int, model.User)
 }
 
 func NewUserRepository() UserRepository {
@@ -23,24 +23,24 @@ func NewUserRepository() UserRepository {
 type userRepository struct{}
 
 //登录
-func (n userRepository) GetUserByUserNameAndPwd(username string, password string) (user models.User) {
+func (n userRepository) GetUserByUserNameAndPwd(username string, password string) (user model.User) {
 	db := datasource.GetDB()
 	db.Where("username = ? and password = ?", username, password).First(&user)
 	return
 }
-func (n userRepository) GetUserByUsername(username string) (user models.User) {
+func (n userRepository) GetUserByUsername(username string) (user model.User) {
 	db := datasource.GetDB()
 	db.Where("username = ?", username).First(&user)
 	return
 }
 
 //添加/修改
-func (n userRepository) Save(user models.User) (int, models.User) {
+func (n userRepository) Save(user model.User) (int, model.User) {
 	code := 0
 	tx := datasource.GetDB().Begin()
 	defer utils.Defer(tx, &code)
 	if user.ID != 0 {
-		var oldUser models.User
+		var oldUser model.User
 		datasource.GetDB().First(&oldUser, user.ID)
 		user.CreatedAt = oldUser.CreatedAt
 		user.Username = oldUser.Username

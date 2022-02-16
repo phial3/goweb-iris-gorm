@@ -2,14 +2,14 @@ package service
 
 import (
 	"goweb-iris-gorm/middleware"
-	"goweb-iris-gorm/models"
+	"goweb-iris-gorm/model"
 	"goweb-iris-gorm/repo"
 	"goweb-iris-gorm/utils"
 )
 
 type UserService interface {
-	Login(m map[string]string) (result models.Result)
-	Save(user models.User) (result models.Result)
+	Login(m map[string]string) (result model.Result)
+	Save(user model.User) (result model.Result)
 }
 type userServices struct {
 }
@@ -23,7 +23,7 @@ var userRepo = repo.NewUserRepository()
 /*
 登录
 */
-func (u userServices) Login(m map[string]string) (result models.Result) {
+func (u userServices) Login(m map[string]string) (result model.Result) {
 
 	if m["username"] == "" {
 		result.Code = -1
@@ -51,7 +51,7 @@ func (u userServices) Login(m map[string]string) (result models.Result) {
 /*
 保存
 */
-func (u userServices) Save(user models.User) (result models.Result) {
+func (u userServices) Save(user model.User) (result model.Result) {
 	//添加
 	if user.ID == 0 {
 		agen := userRepo.GetUserByUsername(user.Username)

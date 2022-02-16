@@ -1,15 +1,15 @@
 package service
 
 import (
-	"goweb-iris-gorm/models"
+	"goweb-iris-gorm/model"
 	"goweb-iris-gorm/repo"
 )
 
 type BookService interface {
-	GetBookList(m map[string]interface{}) (result models.Result)
-	SaveBook(book models.Book) (result models.Result)
-	GetBook(id uint) (result models.Result)
-	DelBook(id uint) (result models.Result)
+	GetBookList(m map[string]interface{}) (result model.Result)
+	SaveBook(book model.Book) (result model.Result)
+	GetBook(id uint) (result model.Result)
+	DelBook(id uint) (result model.Result)
 }
 
 type bookService struct{}
@@ -20,7 +20,7 @@ func NewBookService() BookService {
 
 var bookRepo = repo.NewBookRepository()
 
-func (u bookService) GetBookList(m map[string]interface{}) (result models.Result) {
+func (u bookService) GetBookList(m map[string]interface{}) (result model.Result) {
 	total, books := bookRepo.GetBookList(m)
 	maps := make(map[string]interface{}, 2)
 	maps["Total"] = total
@@ -30,7 +30,7 @@ func (u bookService) GetBookList(m map[string]interface{}) (result models.Result
 	result.Msg = "SUCCESS"
 	return
 }
-func (n bookService) SaveBook(book models.Book) (result models.Result) {
+func (n bookService) SaveBook(book model.Book) (result model.Result) {
 	err := bookRepo.SaveBook(book)
 	if err != nil {
 		result.Code = -1
@@ -41,7 +41,7 @@ func (n bookService) SaveBook(book models.Book) (result models.Result) {
 	}
 	return
 }
-func (n bookService) GetBook(id uint) (result models.Result) {
+func (n bookService) GetBook(id uint) (result model.Result) {
 	book, err := bookRepo.GetBook(id)
 	if err != nil {
 		result.Code = -1
@@ -53,7 +53,7 @@ func (n bookService) GetBook(id uint) (result models.Result) {
 	}
 	return
 }
-func (n bookService) DelBook(id uint) (result models.Result) {
+func (n bookService) DelBook(id uint) (result model.Result) {
 	err := bookRepo.DelBook(id)
 	if err != nil {
 		result.Code = -1

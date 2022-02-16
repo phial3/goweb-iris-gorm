@@ -5,7 +5,7 @@ import (
 	"github.com/kataras/iris/v12"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
-	"goweb-iris-gorm/models"
+	"goweb-iris-gorm/model"
 	"runtime"
 	"strings"
 	"time"
@@ -13,7 +13,7 @@ import (
 
 func LogMiddle(ctx iris.Context) {
 	appName := viper.GetString("app_name")
-	traceLogger := models.NewLogger()
+	traceLogger := model.NewLogger()
 	traceLogger.Proto = ctx.Request().Proto
 	traceLogger.Referer = ctx.Request().Referer()
 	traceLogger.ReqTime = time.Now()
@@ -34,10 +34,10 @@ func LogMiddle(ctx iris.Context) {
 type AppHook struct {
 	Skip        int
 	AppName     string
-	TraceLogger *models.TraceLogger
+	TraceLogger *model.TraceLogger
 }
 
-func NewContextHook(appName string, logger *models.TraceLogger) *AppHook {
+func NewContextHook(appName string, logger *model.TraceLogger) *AppHook {
 	return &AppHook{AppName: appName, TraceLogger: logger, Skip: 5}
 }
 

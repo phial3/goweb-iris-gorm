@@ -10,7 +10,7 @@ import (
 )
 
 import (
-	"goweb-iris-gorm/models"
+	"goweb-iris-gorm/model"
 	"goweb-iris-gorm/service"
 )
 
@@ -23,7 +23,7 @@ func NewBookController() *BookController {
 	return &BookController{Service: service.NewBookService()}
 }
 
-func (g *BookController) PostList() (result models.Result) {
+func (g *BookController) PostList() (result model.Result) {
 	var m map[string]interface{}
 	err := g.Ctx.ReadJSON(&m)
 	if err != nil {
@@ -52,8 +52,8 @@ func (g *BookController) PostList() (result models.Result) {
 	return g.Service.GetBookList(m)
 }
 
-func (g *BookController) PostSave() (result models.Result) {
-	var book models.Book
+func (g *BookController) PostSave() (result model.Result) {
+	var book model.Book
 	if err := g.Ctx.ReadJSON(&book); err != nil {
 		log.Println(err)
 		result.Msg = "数据错误"
@@ -62,7 +62,7 @@ func (g *BookController) PostSave() (result models.Result) {
 	return g.Service.SaveBook(book)
 }
 
-func (g *BookController) PostGet() (result models.Result) {
+func (g *BookController) PostGet() (result model.Result) {
 	var m map[string]interface{}
 	err := g.Ctx.ReadJSON(&m)
 	if err != nil {
@@ -81,7 +81,7 @@ func (g *BookController) PostGet() (result models.Result) {
 	return g.Service.GetBook(cast.ToUint(m["id"]))
 }
 
-func (g *BookController) PostDel() (result models.Result) {
+func (g *BookController) PostDel() (result model.Result) {
 	var m map[string]interface{}
 	err := g.Ctx.ReadJSON(&m)
 	if err != nil {

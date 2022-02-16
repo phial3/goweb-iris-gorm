@@ -11,7 +11,7 @@ import (
 
 import (
 	"goweb-iris-gorm/conf"
-	"goweb-iris-gorm/route"
+	"goweb-iris-gorm/router"
 )
 
 /**
@@ -20,7 +20,7 @@ import (
 func main() {
 	flag.Parse()
 	app := newApp()
-	route.InitRouter(app)
+	router.InitRouter(app)
 	err := app.Run(iris.Addr(":"+conf.SysConfig.Port), iris.WithoutServerError(iris.ErrServerClosed))
 	if err != nil {
 		panic(err)

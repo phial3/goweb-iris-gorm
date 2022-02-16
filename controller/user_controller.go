@@ -6,7 +6,7 @@ import (
 )
 
 import (
-	"goweb-iris-gorm/models"
+	"goweb-iris-gorm/model"
 	"goweb-iris-gorm/service"
 )
 
@@ -19,7 +19,7 @@ func NewUserController() *UserController {
 	return &UserController{Service: service.NewUserServices()}
 }
 
-func (g *UserController) PostLogin() models.Result {
+func (g *UserController) PostLogin() model.Result {
 	var m map[string]string
 	err := g.Ctx.ReadJSON(&m)
 	if err != nil {
@@ -29,8 +29,8 @@ func (g *UserController) PostLogin() models.Result {
 	return result
 }
 
-func (g *UserController) PostSave() (result models.Result) {
-	var user models.User
+func (g *UserController) PostSave() (result model.Result) {
+	var user model.User
 	if err := g.Ctx.ReadJSON(&user); err != nil {
 		log.Println(err)
 		result.Msg = "数据错误"

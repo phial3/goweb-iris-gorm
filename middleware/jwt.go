@@ -14,7 +14,7 @@ import (
 )
 
 import (
-	"goweb-iris-gorm/models"
+	"goweb-iris-gorm/model"
 )
 
 const JwtKey = "percy"
@@ -31,7 +31,7 @@ func GetJWT() *jwtmiddleware.Middleware {
 		//验证未通过错误处理方式
 		ErrorHandler: func(ctx iris.Context, err error) {
 			fmt.Println("error : ", err.Error())
-			result := models.Result{Code: -1, Msg: "认证失败，请重新登录认证"}
+			result := model.Result{Code: -1, Msg: "认证失败，请重新登录认证"}
 			i, err := ctx.JSON(result)
 			if err != nil {
 				log.Println(i, err)
@@ -42,7 +42,7 @@ func GetJWT() *jwtmiddleware.Middleware {
 }
 
 //生成token
-func GenerateToken(user models.User) string {
+func GenerateToken(user model.User) string {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"nick_name": user.Username,                                            //用户信息
 		"session":   user.Session,                                             //session
